@@ -49,15 +49,25 @@ Please provide a detailed 7-day fitness and nutrition plan that includes:
       return response.text();
     }
 
+    const candidates = [
+      'gemini-1.5-pro-latest',
+      'gemini-1.5-flash-latest',
+      'gemini-1.0-pro',
+      'gemini-pro'
+    ];
+
     let text;
-    try {
-      text = await tryModel('gemini-1.5-pro');
-    } catch (primaryErr) {
+    let lastErr;
+    for (const name of candidates) {
       try {
-        text = await tryModel('gemini-1.5-flash');
-      } catch (fallbackErr) {
-        throw new Error(`Model error: ${primaryErr.message || 'primary failed'} | fallback: ${fallbackErr.message || 'fallback failed'}`);
+        text = await tryModel(name);
+        break;
+      } catch (e) {
+        lastErr = e;
       }
+    }
+    if (!text) {
+      throw new Error(`All model attempts failed. Last error: ${lastErr?.message || 'unknown'}`);
     }
 
     return {
