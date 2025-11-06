@@ -70,7 +70,10 @@ const FitnessForm = () => {
         setPlan(response.data.plan);
       } catch (err) {
         console.error('Error generating plan:', err);
-        setError(err.response?.data?.error || 'Failed to generate fitness plan');
+        const apiError = err.response?.data;
+        const message = apiError?.error || apiError?.message || err.message || 'Failed to generate fitness plan';
+        const details = apiError?.details ? `: ${apiError.details}` : '';
+        setError(`${message}${details}`);
       } finally {
         setLoading(false);
       }

@@ -11,6 +11,16 @@ exports.handler = async (event) => {
     const { GoogleGenerativeAI } = await import('@google/generative-ai');
     const genAI = new GoogleGenerativeAI(apiKey);
     const body = JSON.parse(event.body || '{}');
+    // Basic validation for required fields
+    const required = ['age', 'biologicalSex', 'height', 'weight', 'fitnessExperience', 'fitnessGoals'];
+    const missing = required.filter((k) => body[k] === undefined || body[k] === '');
+    if (missing.length) {
+      return {
+        statusCode: 400,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ success: false, error: 'Missing required fields', details: missing.join(', ') })
+      };
+    }
 
     const prompt = `Create a personalized fitness and diet plan based on the following user information:
 - Age: ${body.age}
@@ -32,10 +42,23 @@ Please provide a detailed 7-day fitness and nutrition plan that includes:
 4. Hydration goals
 5. Additional recommendations based on the user's data`;
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    async function tryModel(modelName) {
+      const model = genAI.getGenerativeModel({ model: modelName });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      return response.text();
+    }
+
+    let text;
+    try {
+      text = await tryModel('gemini-1.5-pro');
+    } catch (primaryErr) {
+      try {
+        text = await tryModel('gemini-1.5-flash');
+      } catch (fallbackErr) {
+        throw new Error(`Model error: ${primaryErr.message || 'primary failed'} | fallback: ${fallbackErr.message || 'fallback failed'}`);
+      }
+    }
 
     return {
       statusCode: 200,
