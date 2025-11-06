@@ -43,6 +43,44 @@ const theme = createTheme({
         },
       },
     },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: '1rem',
+          fontWeight: 600,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-input': {
+            fontSize: '1rem',
+          },
+          width: '100%',
+        },
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'outlined',
+        size: 'medium',
+        fullWidth: true,
+        InputLabelProps: { shrink: true },
+      },
+    },
+    MuiSelect: {
+      defaultProps: {
+        fullWidth: true,
+      },
+    },
+    MuiFormControl: {
+      defaultProps: {
+        fullWidth: true,
+        variant: 'outlined',
+        size: 'medium',
+      },
+    },
   },
 });
 

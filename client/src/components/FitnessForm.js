@@ -117,12 +117,15 @@ const FitnessForm = () => {
                 error={formik.touched.age && Boolean(formik.errors.age)}
                 helperText={formik.touched.age && formik.errors.age}
                 margin="normal"
+                variant="outlined"
+                size="medium"
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel id="biologicalSex-label">Biological Sex</InputLabel>
+              <FormControl fullWidth margin="normal" variant="outlined" size="medium" sx={{ width: '100%' }}>
+                <InputLabel id="biologicalSex-label" shrink>Biological Sex</InputLabel>
                 <Select
                   labelId="biologicalSex-label"
                   id="biologicalSex"
@@ -156,6 +159,9 @@ const FitnessForm = () => {
                 error={formik.touched.height && Boolean(formik.errors.height)}
                 helperText={formik.touched.height && formik.errors.height}
                 margin="normal"
+                variant="outlined"
+                size="medium"
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             
@@ -172,12 +178,15 @@ const FitnessForm = () => {
                 error={formik.touched.weight && Boolean(formik.errors.weight)}
                 helperText={formik.touched.weight && formik.errors.weight}
                 margin="normal"
+                variant="outlined"
+                size="medium"
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel id="fitnessExperience-label">Fitness Experience</InputLabel>
+              <FormControl fullWidth margin="normal" variant="outlined" size="medium" sx={{ width: '100%' }}>
+                <InputLabel id="fitnessExperience-label" shrink>Fitness Experience</InputLabel>
                 <Select
                   labelId="fitnessExperience-label"
                   id="fitnessExperience"
@@ -199,8 +208,8 @@ const FitnessForm = () => {
             </Grid>
             
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel id="fitnessGoals-label">Fitness Goals</InputLabel>
+              <FormControl fullWidth margin="normal" variant="outlined" size="medium" sx={{ width: '100%' }}>
+                <InputLabel id="fitnessGoals-label" shrink>Fitness Goals</InputLabel>
                 <Select
                   labelId="fitnessGoals-label"
                   id="fitnessGoals"
@@ -234,6 +243,9 @@ const FitnessForm = () => {
                 helperText={formik.touched.dietaryRestrictions && formik.errors.dietaryRestrictions}
                 margin="normal"
                 placeholder="e.g., Vegetarian, Gluten-free, Nut allergies, etc."
+                variant="outlined"
+                size="medium"
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             
@@ -266,6 +278,9 @@ const FitnessForm = () => {
                     error={formik.touched.oxygenSaturation && Boolean(formik.errors.oxygenSaturation)}
                     helperText={formik.touched.oxygenSaturation && formik.errors.oxygenSaturation}
                     margin="normal"
+                    variant="outlined"
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
                 
@@ -282,6 +297,9 @@ const FitnessForm = () => {
                     helperText={formik.touched.bloodPressure && formik.errors.bloodPressure}
                     margin="normal"
                     placeholder="e.g., 120/80"
+                    variant="outlined"
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
                 
@@ -299,6 +317,9 @@ const FitnessForm = () => {
                     helperText={formik.touched.waterIntake && formik.errors.waterIntake}
                     margin="normal"
                     step="0.1"
+                    variant="outlined"
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
                 
@@ -315,6 +336,9 @@ const FitnessForm = () => {
                     error={formik.touched.calorieIntake && Boolean(formik.errors.calorieIntake)}
                     helperText={formik.touched.calorieIntake && formik.errors.calorieIntake}
                     margin="normal"
+                    variant="outlined"
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
               </>
