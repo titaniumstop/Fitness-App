@@ -35,6 +35,8 @@ const validationSchema = Yup.object({
   calorieIntake: Yup.number().min(500, 'Must be at least 500 kcal').max(10000, 'Must be under 10,000 kcal'),
 });
 
+const fieldSx = { width: '100%', minWidth: 320 };
+
 const FitnessForm = () => {
   const [loading, setLoading] = useState(false);
   const [plan, setPlan] = useState(null);
@@ -100,7 +102,7 @@ const FitnessForm = () => {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
+        <Typography variant="h3" component="h1" gutterBottom align="center" color="primary">
           AI-Powered Fitness & Nutrition Plan
         </Typography>
         
@@ -109,7 +111,7 @@ const FitnessForm = () => {
             {/* Basic Information */}
             <Grid item xs={12} md={6}>
               <TextField
-                fullWidth
+                sx={fieldSx}
                 id="age"
                 name="age"
                 label="Age"
@@ -127,7 +129,7 @@ const FitnessForm = () => {
             </Grid>
             
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth margin="normal" variant="outlined" size="medium" sx={{ width: '100%' }}>
+              <FormControl margin="normal" variant="outlined" size="medium" sx={fieldSx}>
                 <InputLabel id="biologicalSex-label" shrink>Biological Sex</InputLabel>
                 <Select
                   labelId="biologicalSex-label"
@@ -151,7 +153,7 @@ const FitnessForm = () => {
             
             <Grid item xs={12} md={6}>
               <TextField
-                fullWidth
+                sx={fieldSx}
                 id="height"
                 name="height"
                 label="Height (cm)"
@@ -170,7 +172,7 @@ const FitnessForm = () => {
             
             <Grid item xs={12} md={6}>
               <TextField
-                fullWidth
+                sx={fieldSx}
                 id="weight"
                 name="weight"
                 label="Weight (kg)"
@@ -188,7 +190,7 @@ const FitnessForm = () => {
             </Grid>
             
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth margin="normal" variant="outlined" size="medium" sx={{ width: '100%' }}>
+              <FormControl margin="normal" variant="outlined" size="medium" sx={fieldSx}>
                 <InputLabel id="fitnessExperience-label" shrink>Fitness Experience</InputLabel>
                 <Select
                   labelId="fitnessExperience-label"
@@ -211,7 +213,7 @@ const FitnessForm = () => {
             </Grid>
             
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth margin="normal" variant="outlined" size="medium" sx={{ width: '100%' }}>
+              <FormControl margin="normal" variant="outlined" size="medium" sx={fieldSx}>
                 <InputLabel id="fitnessGoals-label" shrink>Fitness Goals</InputLabel>
                 <Select
                   labelId="fitnessGoals-label"
@@ -235,7 +237,7 @@ const FitnessForm = () => {
             
             <Grid item xs={12}>
               <TextField
-                fullWidth
+                sx={fieldSx}
                 id="dietaryRestrictions"
                 name="dietaryRestrictions"
                 label="Dietary Restrictions (optional)"
@@ -270,7 +272,7 @@ const FitnessForm = () => {
               <>
                 <Grid item xs={12} md={6}>
                   <TextField
-                    fullWidth
+                    sx={fieldSx}
                     id="oxygenSaturation"
                     name="oxygenSaturation"
                     label="Oxygen Saturation (%)"
@@ -289,7 +291,7 @@ const FitnessForm = () => {
                 
                 <Grid item xs={12} md={6}>
                   <TextField
-                    fullWidth
+                    sx={fieldSx}
                     id="bloodPressure"
                     name="bloodPressure"
                     label="Blood Pressure (e.g., 120/80)"
@@ -308,7 +310,7 @@ const FitnessForm = () => {
                 
                 <Grid item xs={12} md={6}>
                   <TextField
-                    fullWidth
+                    sx={fieldSx}
                     id="waterIntake"
                     name="waterIntake"
                     label="Daily Water Intake (L)"
@@ -328,7 +330,7 @@ const FitnessForm = () => {
                 
                 <Grid item xs={12} md={6}>
                   <TextField
-                    fullWidth
+                    sx={fieldSx}
                     id="calorieIntake"
                     name="calorieIntake"
                     label="Daily Calorie Intake (kcal)"
