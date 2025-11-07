@@ -8,8 +8,6 @@ exports.handler = async (event) => {
     if (!apiKey) {
       return { statusCode: 500, body: JSON.stringify({ error: 'Missing GEMINI_API_KEY' }) };
     }
-    const { GoogleGenerativeAI } = await import('@google/generative-ai');
-    const genAI = new GoogleGenerativeAI(apiKey, { apiVersion: 'v1' });
     const body = JSON.parse(event.body || '{}');
     // Basic validation for required fields
     const required = ['age', 'biologicalSex', 'height', 'weight', 'fitnessExperience', 'fitnessGoals'];
@@ -42,17 +40,36 @@ Please provide a detailed 7-day fitness and nutrition plan that includes:
 4. Hydration goals
 5. Additional recommendations based on the user's data`;
 
-    async function tryModel(modelName) {
-      const model = genAI.getGenerativeModel({ model: modelName });
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      return response.text();
+    async function callGeminiREST(model) {
+      const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent`;
+      const resp = await fetch(url + `?key=${encodeURIComponent(apiKey)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: prompt }]
+            }
+          ]
+        })
+      });
+      if (!resp.ok) {
+        const txt = await resp.text();
+        throw new Error(`${resp.status} ${resp.statusText}: ${txt}`);
+      }
+      const data = await resp.json();
+      const text = data?.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
+      if (!text) throw new Error('Empty response from model');
+      return text;
     }
 
     const candidates = [
       'gemini-1.5-pro-latest',
       'gemini-1.5-flash-latest',
-      'gemini-1.0-pro',
+      'gemini-1.0-pro-latest',
       'gemini-pro'
     ];
 
@@ -60,7 +77,7 @@ Please provide a detailed 7-day fitness and nutrition plan that includes:
     let lastErr;
     for (const name of candidates) {
       try {
-        text = await tryModel(name);
+        text = await callGeminiREST(name);
         break;
       } catch (e) {
         lastErr = e;
